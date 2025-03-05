@@ -6,9 +6,9 @@ clear;
 clc;
 
 % Definir a função e suas derivadas
-f = @(x) x^3 - 2*x^2 - 5;  % Função f(x)
-df = @(x) 3*x^2 - 4*x;      % Primeira derivada de f(x)
-ddf = @(x) 6*x - 4;         % Segunda derivada de f(x)
+f = @(x) x.^3 - 2*x.^2 - 5;
+df = @(x) 3*x.^2 - 4*x;
+ddf = @(x) 6*x - 4;
 
 % Parâmetros comuns
 eps1 = 1e-6;  % Tolerância para |f(x)|
@@ -20,7 +20,7 @@ a = 1; b = 3; % Intervalo inicial
 [raiz_bissecc, hist_bissecc] = bisseccPosFalsa(false, f, a, b, eps1, maxiter);
 
 %Método da Posição Falsa
-[raiz_bissecc, hist_bissecc] = bisseccPosFalsa(true, f, a, b, eps1, maxiter);
+[raiz_falsa, hist_falsa] = bisseccPosFalsa(true, f, a, b, eps1, maxiter);
 
 % Método de Newton-Raphson
 x0_newton = 2; % Valor inicial
@@ -39,24 +39,9 @@ x0_householder = 2; % Valor inicial
 [raiz_householder, hist_householder] = rootHouseholder(x0_householder, eps1, eps2, maxiter, f, df, ddf);
 
 % Gerar gráficos
-figure;
-hold on;
-plot(hist_bissecc{1}, 'DisplayName', 'Bissecção');
-plot(hist_newton{1}, 'DisplayName', 'Newton-Raphson');
-plot(hist_secante{1}, 'DisplayName', 'Secante');
-plot(hist_muller{1}, 'DisplayName', 'Müller');
-plot(hist_householder{1}, 'DisplayName', 'Householder');
-xlabel('Iteração');
-ylabel('Aproximação da raiz');
-title('Evolução das Aproximações da Raiz');
-legend;
-grid on;
-hold off;
-
-% Exibir resultados finais
-fprintf('\n=== Resultados Finais ===\n');
-fprintf('Bissecção: raiz = %.10f\n', raiz_bissecc);
-fprintf('Newton-Raphson: raiz = %.10f\n', raiz_newton);
-fprintf('Secante: raiz = %.10f\n', raiz_secante);
-fprintf('Müller: raiz = %.10f\n', raiz_muller);
-fprintf('Householder: raiz = %.10f\n', raiz_householder);
+grafico(f, hist_bissecc, 'Bissecção', 1);
+grafico(f, hist_falsa, 'Posição Falsa', 2);
+grafico(f, hist_newton, 'Newton-Raphson', 3);
+grafico(f, hist_secante, 'Secantes', 4);
+grafico(f, hist_muller, 'Muller', 5);
+grafico(f, hist_householder, 'Householder', 6);
