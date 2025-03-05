@@ -8,7 +8,7 @@
 %% Output: raiz sequência
 %%
 function [raiz, hist] = rootSecante(x0, x1, eps1, eps2, maxiter, func)
-    fprintf('--- R A I Z  M E T O D O  D O  S E C A N T E ---\n');
+    fprintf('--- R A I Z  M E T O D O  D A  S E C A N T E ---\n');
     k = 1;
     fx0 = func(x0);
     fx1 = func(x1);
